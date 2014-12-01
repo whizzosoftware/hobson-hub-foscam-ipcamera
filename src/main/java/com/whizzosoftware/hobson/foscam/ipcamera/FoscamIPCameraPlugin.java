@@ -9,13 +9,14 @@ package com.whizzosoftware.hobson.foscam.ipcamera;
 
 import java.io.IOException;
 import java.util.Dictionary;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.whizzosoftware.foscam.camera.discovery.FoscamCameraDiscovery;
 import com.whizzosoftware.foscam.camera.discovery.FoscamCameraDiscoveryListener;
 import com.whizzosoftware.foscam.camera.model.FoscamCamera;
 import com.whizzosoftware.hobson.api.plugin.AbstractHobsonPlugin;
-import com.whizzosoftware.hobson.bootstrap.api.plugin.PluginStatus;
+import com.whizzosoftware.hobson.api.plugin.PluginStatus;
 
 
 /**
@@ -71,16 +72,6 @@ public class FoscamIPCameraPlugin extends AbstractHobsonPlugin implements Foscam
         logger.debug("Stopping camera discovery");
         discovery.stop();
         discovery = null;
-    }
-
-    @Override
-    public long getRefreshInterval() {
-        return 0; // no refresh callback
-    }
-
-    @Override
-    public void onRefresh() {
-        // NO-OP
     }
 
     /*

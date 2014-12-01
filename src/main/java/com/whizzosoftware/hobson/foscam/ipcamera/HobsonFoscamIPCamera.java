@@ -7,11 +7,11 @@
  *******************************************************************************/
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
+import com.whizzosoftware.hobson.api.config.ConfigurationPropertyMetaData;
 import com.whizzosoftware.hobson.api.device.AbstractHobsonDevice;
 import com.whizzosoftware.hobson.api.device.DeviceType;
 import com.whizzosoftware.hobson.api.variable.HobsonVariable;
 import com.whizzosoftware.hobson.api.variable.VariableConstants;
-import com.whizzosoftware.hobson.bootstrap.api.config.ConfigurationMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,8 +52,8 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     @Override
     public void onStartup() {
         // publish configuration metadata
-        addConfigurationMetaData(new ConfigurationMetaData(CONFIG_USERNAME, "Username", "A username that can access the camera", ConfigurationMetaData.Type.STRING));
-        addConfigurationMetaData(new ConfigurationMetaData(CONFIG_PASSWORD, "Password", "The password for the user", ConfigurationMetaData.Type.PASSWORD));
+        addConfigurationMetaData(new ConfigurationPropertyMetaData(CONFIG_USERNAME, "Username", "A username that can access the camera", ConfigurationPropertyMetaData.Type.STRING));
+        addConfigurationMetaData(new ConfigurationPropertyMetaData(CONFIG_PASSWORD, "Password", "The password for the user", ConfigurationPropertyMetaData.Type.PASSWORD));
 
         // publish variables
         publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY);
