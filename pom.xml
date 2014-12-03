@@ -102,6 +102,7 @@
                         <Bundle-Activator>com.whizzosoftware.hobson.api.osgi.activator.HobsonBundleActivator</Bundle-Activator>
                         <Embed-Dependency>foscam-camera-discovery;scope=compile|runtime</Embed-Dependency>
                         <Provide-Capability>hobson.plugin=com.whizzosoftware.hobson.foscam.ipcamera.FoscamIPCameraPlugin</Provide-Capability>
+                        <Bundle-Category>hobson-plugin</Bundle-Category>
                     </instructions>
                 </configuration>
             </plugin>
