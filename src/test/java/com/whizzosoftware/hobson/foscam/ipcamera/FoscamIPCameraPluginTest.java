@@ -8,6 +8,8 @@
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
 import com.whizzosoftware.foscam.camera.model.FoscamCamera;
+import com.whizzosoftware.hobson.api.device.MockDeviceManager;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 

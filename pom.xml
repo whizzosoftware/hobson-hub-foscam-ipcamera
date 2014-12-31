@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.whizzosoftware.hobson.hub</groupId>
             <artifactId>hobson-hub-api</artifactId>
-            <version>0.1.7</version>
+            <version>0.1.8</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -53,6 +53,12 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-transport</artifactId>
             <version>4.0.21.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.whizzosoftware.hobson.hub</groupId>
+            <artifactId>hobson-hub-api-mock</artifactId>
+            <version>0.1.8</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
