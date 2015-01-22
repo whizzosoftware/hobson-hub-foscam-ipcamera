@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.whizzosoftware.hobson.hub</groupId>
     <artifactId>hobson-hub-foscam-ipcamera</artifactId>
-    <version>0.2.2-SNAPSHOT</version>
+    <version>0.3.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>Foscam IP Camera Plugin</name>
     <description>Provides the ability to control Foscam IP cameras.</description>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.whizzosoftware.hobson.hub</groupId>
             <artifactId>hobson-hub-api</artifactId>
-            <version>0.3.0</version>
+            <version>0.4.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>com.whizzosoftware.hobson.hub</groupId>
             <artifactId>hobson-hub-api-mock</artifactId>
-            <version>0.3.0</version>
+            <version>0.4.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -104,7 +104,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Import-Package>org.osgi.framework,org.osgi.service.cm,org.apache.felix.dm,org.osgi.service.event,org.slf4j,org.apache.commons.httpclient.*,javax.ws.rs.*,com.whizzosoftware.hobson.api.*;version="[0.3.0,0.4)</Import-Package>
+                        <Import-Package>org.osgi.framework,org.osgi.service.cm,org.apache.felix.dm,org.osgi.service.event,org.slf4j,org.apache.commons.httpclient.*,javax.ws.rs.*,com.whizzosoftware.hobson.api.*;version="[0.4.0,0.5)</Import-Package>
                         <Bundle-Activator>com.whizzosoftware.hobson.api.osgi.activator.HobsonBundleActivator</Bundle-Activator>
                         <Embed-Dependency>foscam-camera-discovery;scope=compile|runtime</Embed-Dependency>
                         <Provide-Capability>hobson.plugin=com.whizzosoftware.hobson.foscam.ipcamera.FoscamIPCameraPlugin</Provide-Capability>
