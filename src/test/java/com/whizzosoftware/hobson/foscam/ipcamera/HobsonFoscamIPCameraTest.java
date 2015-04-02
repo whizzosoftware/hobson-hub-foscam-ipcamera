@@ -1,5 +1,8 @@
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
+import com.whizzosoftware.hobson.api.config.Configuration;
+import com.whizzosoftware.hobson.api.config.ConfigurationProperty;
+import com.whizzosoftware.hobson.api.config.ConfigurationPropertyMetaData;
 import org.junit.Test;
 
 import java.net.InetAddress;
@@ -19,9 +22,9 @@ public class HobsonFoscamIPCameraTest {
     @Test
     public void testURLWithCredentials() {
         HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(null, "id", "camera", InetAddress.getLoopbackAddress());
-        Hashtable config = new Hashtable();
-        config.put(HobsonFoscamIPCamera.CONFIG_USERNAME, "foo");
-        config.put(HobsonFoscamIPCamera.CONFIG_PASSWORD, "bar");
+        Configuration config = new Configuration();
+        config.addProperty(new ConfigurationProperty(new ConfigurationPropertyMetaData(HobsonFoscamIPCamera.CONFIG_USERNAME), "foo"));
+        config.addProperty(new ConfigurationProperty(new ConfigurationPropertyMetaData(HobsonFoscamIPCamera.CONFIG_PASSWORD), "bar"));
         c.onDeviceConfigurationUpdate(config);
         assertTrue(c.hasCredentials());
         assertEquals("foo", c.getUsername());

@@ -7,6 +7,7 @@
  *******************************************************************************/
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
+import com.whizzosoftware.hobson.api.config.Configuration;
 import com.whizzosoftware.hobson.api.config.ConfigurationPropertyMetaData;
 import com.whizzosoftware.hobson.api.device.AbstractHobsonDevice;
 import com.whizzosoftware.hobson.api.device.DeviceType;
@@ -50,7 +51,7 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     }
 
     @Override
-    public void onStartup() {
+    public void onStartup(Configuration config) {
         // publish configuration metadata
         addConfigurationMetaData(new ConfigurationPropertyMetaData(CONFIG_USERNAME, "Username", "A username that can access the camera", ConfigurationPropertyMetaData.Type.STRING));
         addConfigurationMetaData(new ConfigurationPropertyMetaData(CONFIG_PASSWORD, "Password", "The password for the user", ConfigurationPropertyMetaData.Type.PASSWORD));
@@ -77,12 +78,12 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     }
 
     @Override
-    public void onDeviceConfigurationUpdate(Dictionary config) {
+    public void onDeviceConfigurationUpdate(Configuration config) {
         super.onDeviceConfigurationUpdate(config);
 
         if (config != null) {
-            this.username = (String) config.get(CONFIG_USERNAME);
-            this.password = (String) config.get(CONFIG_PASSWORD);
+            this.username = (String)config.getPropertyValue(CONFIG_USERNAME);
+            this.password = (String)config.getPropertyValue(CONFIG_PASSWORD);
 
             // only fire updated URL variable notifications if variables have been published
             if (varsPublished) {

@@ -10,6 +10,7 @@ package com.whizzosoftware.hobson.foscam.ipcamera;
 import java.io.IOException;
 import java.util.Dictionary;
 
+import com.whizzosoftware.hobson.api.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.whizzosoftware.foscam.camera.discovery.FoscamCameraDiscovery;
@@ -44,7 +45,7 @@ public class FoscamIPCameraPlugin extends AbstractHobsonPlugin implements Foscam
     }
 
     @Override
-    public void onStartup(Dictionary configuration) {
+    public void onStartup(Configuration configuration) {
         try {
             // create Foscam camera discovery object
             if (discovery == null) {
@@ -54,16 +55,16 @@ public class FoscamIPCameraPlugin extends AbstractHobsonPlugin implements Foscam
             }
 
             // flag plugin as running
-            setStatus(new PluginStatus(PluginStatus.Status.RUNNING));
+            setStatus(PluginStatus.running());
         } catch (IOException e) {
             logger.error("Error enabling camera discovery", e);
-            setStatus(new PluginStatus(PluginStatus.Status.FAILED, e.getLocalizedMessage()));
+            setStatus(PluginStatus.failed(e.getLocalizedMessage()));
         }
 
     }
 
     @Override
-    public void onPluginConfigurationUpdate(Dictionary config) {
+    public void onPluginConfigurationUpdate(Configuration config) {
         // NO-OP
     }
 
