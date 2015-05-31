@@ -13,7 +13,8 @@ import static org.junit.Assert.*;
 public class HobsonFoscamIPCameraTest {
     @Test
     public void testURLWithoutCredentials() {
-        HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(null, "id", "camera", InetAddress.getLoopbackAddress());
+        FoscamIPCameraPlugin plugin = new FoscamIPCameraPlugin("pluginId");
+        HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(plugin, "id", "camera", InetAddress.getLoopbackAddress());
         assertFalse(c.hasCredentials());
         assertEquals("http://127.0.0.1/snapshot.cgi", c.getImageUrl());
         assertEquals("http://127.0.0.1/videostream.cgi?resolution=8&rate=11", c.getVideoUrl());
@@ -21,7 +22,8 @@ public class HobsonFoscamIPCameraTest {
 
     @Test
     public void testURLWithCredentials() {
-        HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(null, "id", "camera", InetAddress.getLoopbackAddress());
+        FoscamIPCameraPlugin plugin = new FoscamIPCameraPlugin("pluginId");
+        HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(plugin, "id", "camera", InetAddress.getLoopbackAddress());
         Configuration config = new Configuration();
         config.addProperty(new ConfigurationProperty(new ConfigurationPropertyMetaData(HobsonFoscamIPCamera.CONFIG_USERNAME), "foo"));
         config.addProperty(new ConfigurationProperty(new ConfigurationPropertyMetaData(HobsonFoscamIPCamera.CONFIG_PASSWORD), "bar"));

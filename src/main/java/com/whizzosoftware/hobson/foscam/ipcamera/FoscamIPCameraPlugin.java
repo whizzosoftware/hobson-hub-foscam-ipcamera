@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Dictionary;
 
 import com.whizzosoftware.hobson.api.config.Configuration;
+import com.whizzosoftware.hobson.api.device.DeviceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.whizzosoftware.foscam.camera.discovery.FoscamCameraDiscovery;
@@ -82,7 +83,7 @@ public class FoscamIPCameraPlugin extends AbstractHobsonPlugin implements Foscam
     @Override
     public void onCameraDiscovered(FoscamCamera camera) {
         logger.trace("Discovered camera: " + camera.getId());
-        if (!hasDevice(camera.getId())) {
+        if (!hasDevice(DeviceContext.create(getContext(), camera.getId()))) {
             publishDevice(new HobsonFoscamIPCamera(this, camera.getId(), camera.getName(), camera.getAddress()));
             logger.debug("Added camera {}", camera.getId());
         } else {

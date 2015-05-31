@@ -13,11 +13,11 @@ import com.whizzosoftware.hobson.api.device.AbstractHobsonDevice;
 import com.whizzosoftware.hobson.api.device.DeviceType;
 import com.whizzosoftware.hobson.api.variable.HobsonVariable;
 import com.whizzosoftware.hobson.api.variable.VariableConstants;
+import com.whizzosoftware.hobson.api.variable.VariableProxyType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
-import java.util.Dictionary;
 
 /**
  * A class representing a Foscam IP camera.
@@ -47,18 +47,20 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
         super(plugin, id);
 
         setDefaultName(name);
+
         this.address = address;
     }
 
     @Override
     public void onStartup(Configuration config) {
-        // publish configuration metadata
-        addConfigurationMetaData(new ConfigurationPropertyMetaData(CONFIG_USERNAME, "Username", "A username that can access the camera", ConfigurationPropertyMetaData.Type.STRING));
-        addConfigurationMetaData(new ConfigurationPropertyMetaData(CONFIG_PASSWORD, "Password", "The password for the user", ConfigurationPropertyMetaData.Type.PASSWORD));
+        if (config != null) {
+            this.username = (String)config.getPropertyValue(CONFIG_USERNAME);
+            this.password = (String)config.getPropertyValue(CONFIG_PASSWORD);
+        }
 
         // publish variables
-        publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY);
-        publishVariable(VariableConstants.VIDEO_STATUS_URL, getVideoUrl(), HobsonVariable.Mask.READ_ONLY);
+        publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
+        publishVariable(VariableConstants.VIDEO_STATUS_URL, getVideoUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
 
         varsPublished = true;
     }
@@ -73,8 +75,16 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     }
 
     @Override
+    public ConfigurationPropertyMetaData[] createConfigurationPropertyMetaData() {
+        return new ConfigurationPropertyMetaData[] {
+            new ConfigurationPropertyMetaData(CONFIG_USERNAME, "Username", "A username that can access the camera", ConfigurationPropertyMetaData.Type.STRING),
+            new ConfigurationPropertyMetaData(CONFIG_PASSWORD, "Password", "The password for the user", ConfigurationPropertyMetaData.Type.PASSWORD)
+        };
+    }
+
+    @Override
     public String getPreferredVariableName() {
-        return VariableConstants.VIDEO_STATUS_URL;
+        return VariableConstants.IMAGE_STATUS_URL;
     }
 
     @Override
