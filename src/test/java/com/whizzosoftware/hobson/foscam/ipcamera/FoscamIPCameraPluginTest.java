@@ -8,9 +8,9 @@
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
 import com.whizzosoftware.foscam.camera.model.FoscamCamera;
-import com.whizzosoftware.hobson.api.config.Configuration;
 import com.whizzosoftware.hobson.api.device.MockDeviceManager;
 
+import com.whizzosoftware.hobson.api.property.PropertyContainer;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -20,7 +20,7 @@ public class FoscamIPCameraPluginTest {
         MockDeviceManager dm = new MockDeviceManager();
         FoscamIPCameraPlugin plugin = new FoscamIPCameraPlugin("id", null);
         plugin.setDeviceManager(dm);
-        plugin.onStartup(new Configuration());
+        plugin.onStartup(new PropertyContainer());
         assertEquals(0, dm.publishedDevices.size());
         plugin.onCameraDiscovered(new FoscamCamera("cid", "camera", null));
         assertEquals(1, dm.publishedDevices.size());

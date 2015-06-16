@@ -1,19 +1,19 @@
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
-import com.whizzosoftware.hobson.api.config.Configuration;
-import com.whizzosoftware.hobson.api.config.ConfigurationProperty;
-import com.whizzosoftware.hobson.api.config.ConfigurationPropertyMetaData;
+import com.whizzosoftware.hobson.api.property.PropertyContainer;
 import org.junit.Test;
 
 import java.net.InetAddress;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
 public class HobsonFoscamIPCameraTest {
     @Test
     public void testURLWithoutCredentials() {
-        HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(null, "id", "camera", InetAddress.getLoopbackAddress());
+        FoscamIPCameraPlugin plugin = new FoscamIPCameraPlugin("foo");
+        HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(plugin, "id", "camera", InetAddress.getLoopbackAddress());
         assertFalse(c.hasCredentials());
         assertEquals("http://127.0.0.1/snapshot.cgi", c.getImageUrl());
         assertEquals("http://127.0.0.1/videostream.cgi?resolution=8&rate=11", c.getVideoUrl());
@@ -21,10 +21,13 @@ public class HobsonFoscamIPCameraTest {
 
     @Test
     public void testURLWithCredentials() {
-        HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(null, "id", "camera", InetAddress.getLoopbackAddress());
-        Configuration config = new Configuration();
-        config.addProperty(new ConfigurationProperty(new ConfigurationPropertyMetaData(HobsonFoscamIPCamera.CONFIG_USERNAME), "foo"));
-        config.addProperty(new ConfigurationProperty(new ConfigurationPropertyMetaData(HobsonFoscamIPCamera.CONFIG_PASSWORD), "bar"));
+        FoscamIPCameraPlugin plugin = new FoscamIPCameraPlugin("foo");
+        HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(plugin, "id", "camera", InetAddress.getLoopbackAddress());
+        PropertyContainer config = new PropertyContainer();
+        Map<String,Object> values = new HashMap<>();
+        values.put(HobsonFoscamIPCamera.CONFIG_USERNAME, "foo");
+        values.put(HobsonFoscamIPCamera.CONFIG_PASSWORD, "bar");
+        config.setPropertyValues(values);
         c.onDeviceConfigurationUpdate(config);
         assertTrue(c.hasCredentials());
         assertEquals("foo", c.getUsername());

@@ -7,17 +7,16 @@
  *******************************************************************************/
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
-import com.whizzosoftware.hobson.api.config.Configuration;
-import com.whizzosoftware.hobson.api.config.ConfigurationPropertyMetaData;
 import com.whizzosoftware.hobson.api.device.AbstractHobsonDevice;
 import com.whizzosoftware.hobson.api.device.DeviceType;
+import com.whizzosoftware.hobson.api.property.PropertyContainer;
+import com.whizzosoftware.hobson.api.property.TypedProperty;
 import com.whizzosoftware.hobson.api.variable.HobsonVariable;
 import com.whizzosoftware.hobson.api.variable.VariableConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
-import java.util.Dictionary;
 
 /**
  * A class representing a Foscam IP camera.
@@ -51,10 +50,9 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     }
 
     @Override
-    public void onStartup(Configuration config) {
-        // publish configuration metadata
-        addConfigurationMetaData(new ConfigurationPropertyMetaData(CONFIG_USERNAME, "Username", "A username that can access the camera", ConfigurationPropertyMetaData.Type.STRING));
-        addConfigurationMetaData(new ConfigurationPropertyMetaData(CONFIG_PASSWORD, "Password", "The password for the user", ConfigurationPropertyMetaData.Type.PASSWORD));
+    public void onStartup(PropertyContainer config) {
+        addSupportedProperty(new TypedProperty(CONFIG_USERNAME, "Username", "A username that can access the camera", TypedProperty.Type.STRING));
+        addSupportedProperty(new TypedProperty(CONFIG_PASSWORD, "Password", "The password for the user", TypedProperty.Type.SECURE_STRING));
 
         // publish variables
         publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY);
@@ -78,7 +76,7 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     }
 
     @Override
-    public void onDeviceConfigurationUpdate(Configuration config) {
+    public void onDeviceConfigurationUpdate(PropertyContainer config) {
         super.onDeviceConfigurationUpdate(config);
 
         if (config != null) {
@@ -93,6 +91,11 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
 
             logger.debug("Updated configuration with username {}", username);
         }
+    }
+
+    @Override
+    protected TypedProperty[] createConfigurationPropertyMetaData() {
+        return new TypedProperty[0];
     }
 
     @Override
