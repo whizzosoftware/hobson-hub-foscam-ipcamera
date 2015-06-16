@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class HobsonFoscamIPCameraTest {
     @Test
     public void testURLWithoutCredentials() {
-        FoscamIPCameraPlugin plugin = new FoscamIPCameraPlugin("foo");
+        FoscamIPCameraPlugin plugin = new FoscamIPCameraPlugin("pluginId");
         HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(plugin, "id", "camera", InetAddress.getLoopbackAddress());
         assertFalse(c.hasCredentials());
         assertEquals("http://127.0.0.1/snapshot.cgi", c.getImageUrl());

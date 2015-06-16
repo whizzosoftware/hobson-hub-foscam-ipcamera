@@ -13,6 +13,7 @@ import com.whizzosoftware.hobson.api.property.PropertyContainer;
 import com.whizzosoftware.hobson.api.property.TypedProperty;
 import com.whizzosoftware.hobson.api.variable.HobsonVariable;
 import com.whizzosoftware.hobson.api.variable.VariableConstants;
+import com.whizzosoftware.hobson.api.variable.VariableProxyType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +47,7 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
         super(plugin, id);
 
         setDefaultName(name);
+
         this.address = address;
     }
 
@@ -55,8 +57,8 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
         addSupportedProperty(new TypedProperty(CONFIG_PASSWORD, "Password", "The password for the user", TypedProperty.Type.SECURE_STRING));
 
         // publish variables
-        publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY);
-        publishVariable(VariableConstants.VIDEO_STATUS_URL, getVideoUrl(), HobsonVariable.Mask.READ_ONLY);
+        publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
+        publishVariable(VariableConstants.VIDEO_STATUS_URL, getVideoUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
 
         varsPublished = true;
     }
@@ -72,7 +74,7 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
 
     @Override
     public String getPreferredVariableName() {
-        return VariableConstants.VIDEO_STATUS_URL;
+        return VariableConstants.IMAGE_STATUS_URL;
     }
 
     @Override
