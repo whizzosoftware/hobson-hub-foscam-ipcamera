@@ -96,11 +96,6 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     }
 
     @Override
-    protected TypedProperty[] createConfigurationPropertyMetaData() {
-        return new TypedProperty[0];
-    }
-
-    @Override
     public void onSetVariable(String name, Object value) {
         // there are no writeable variables
     }
