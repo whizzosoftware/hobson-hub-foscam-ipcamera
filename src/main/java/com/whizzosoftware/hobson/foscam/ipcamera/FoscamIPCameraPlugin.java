@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import com.whizzosoftware.hobson.api.device.DeviceContext;
 import com.whizzosoftware.hobson.api.property.PropertyContainer;
+import com.whizzosoftware.hobson.api.property.TypedProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.whizzosoftware.foscam.camera.discovery.FoscamCameraDiscovery;
@@ -73,6 +74,11 @@ public class FoscamIPCameraPlugin extends AbstractHobsonPlugin implements Foscam
         logger.debug("Stopping camera discovery");
         discovery.stop();
         discovery = null;
+    }
+
+    @Override
+    protected TypedProperty[] createSupportedProperties() {
+        return null;
     }
 
     /*

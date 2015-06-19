@@ -53,9 +53,6 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
 
     @Override
     public void onStartup(PropertyContainer config) {
-        addSupportedProperty(new TypedProperty(CONFIG_USERNAME, "Username", "A username that can access the camera", TypedProperty.Type.STRING));
-        addSupportedProperty(new TypedProperty(CONFIG_PASSWORD, "Password", "The password for the user", TypedProperty.Type.SECURE_STRING));
-
         // publish variables
         publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
         publishVariable(VariableConstants.VIDEO_STATUS_URL, getVideoUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
@@ -93,6 +90,14 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
 
             logger.debug("Updated configuration with username {}", username);
         }
+    }
+
+    @Override
+    protected TypedProperty[] createSupportedProperties() {
+        return new TypedProperty[] {
+            new TypedProperty(CONFIG_USERNAME, "Username", "A username that can access the camera", TypedProperty.Type.STRING),
+            new TypedProperty(CONFIG_PASSWORD, "Password", "The password for the user", TypedProperty.Type.SECURE_STRING)
+        };
     }
 
     @Override
