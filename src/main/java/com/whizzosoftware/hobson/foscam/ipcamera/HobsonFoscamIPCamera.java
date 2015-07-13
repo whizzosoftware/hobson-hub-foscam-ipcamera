@@ -53,6 +53,10 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
 
     @Override
     public void onStartup(PropertyContainer config) {
+        super.onStartup(config);
+
+        readConfig(config);
+
         // publish variables
         publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
         publishVariable(VariableConstants.VIDEO_STATUS_URL, getVideoUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
@@ -78,10 +82,7 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     public void onDeviceConfigurationUpdate(PropertyContainer config) {
         super.onDeviceConfigurationUpdate(config);
 
-        if (config != null) {
-            this.username = (String)config.getPropertyValue(CONFIG_USERNAME);
-            this.password = (String)config.getPropertyValue(CONFIG_PASSWORD);
-
+        if (readConfig(config)) {
             // only fire updated URL variable notifications if variables have been published
             if (varsPublished) {
                 fireVariableUpdateNotification(VariableConstants.IMAGE_STATUS_URL, getImageUrl());
@@ -131,5 +132,19 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
         } else {
             return "http://" + address.getHostAddress() + "/videostream.cgi?resolution=8&rate=11";
         }
+    }
+
+    protected boolean readConfig(PropertyContainer config) {
+        if (config != null) {
+            String username = (String)config.getPropertyValue(CONFIG_USERNAME);
+            String password = (String)config.getPropertyValue(CONFIG_PASSWORD);
+
+            if ((username == null && this.username != null) || (username != null && !username.equals(this.username)) || (password == null && this.password != null) || (password != null && !password.equals(this.password))) {
+                this.username = username;
+                this.password = password;
+                return true;
+            }
+        }
+        return false;
     }
 }
