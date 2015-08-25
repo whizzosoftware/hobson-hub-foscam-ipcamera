@@ -47,7 +47,7 @@ public class FoscamIPCameraPluginTest {
         Map<String,Object> values = new HashMap<>();
         values.put(HobsonFoscamIPCamera.CONFIG_USERNAME, "foo");
         values.put(HobsonFoscamIPCamera.CONFIG_PASSWORD, "bar");
-        PropertyContainer pc = new PropertyContainer(values);
+        PropertyContainer pc = new PropertyContainer(null, values);
 
         camera.onStartup(pc);
 
@@ -76,7 +76,7 @@ public class FoscamIPCameraPluginTest {
         Map<String,Object> values = new HashMap<>();
         values.put(HobsonFoscamIPCamera.CONFIG_USERNAME, "foo1");
         values.put(HobsonFoscamIPCamera.CONFIG_PASSWORD, "bar1");
-        pc = new PropertyContainer(values);
+        pc = new PropertyContainer(null, values);
 
         // simulate user setting username/password configuration fields
         assertEquals(0, vm.getVariableUpdates().size());
@@ -99,7 +99,7 @@ public class FoscamIPCameraPluginTest {
         Map<String,Object> values = new HashMap<>();
         values.put(HobsonFoscamIPCamera.CONFIG_USERNAME, "foo");
         values.put(HobsonFoscamIPCamera.CONFIG_PASSWORD, "bar");
-        PropertyContainer pc = new PropertyContainer(values);
+        PropertyContainer pc = new PropertyContainer(null, values);
 
         camera.onStartup(pc);
 
