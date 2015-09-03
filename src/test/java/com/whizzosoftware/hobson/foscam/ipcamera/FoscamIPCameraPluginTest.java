@@ -8,6 +8,7 @@
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
 import com.whizzosoftware.foscam.camera.model.FoscamCamera;
+import com.whizzosoftware.hobson.api.device.DeviceContext;
 import com.whizzosoftware.hobson.api.device.MockDeviceManager;
 
 import com.whizzosoftware.hobson.api.property.PropertyContainer;
@@ -51,9 +52,9 @@ public class FoscamIPCameraPluginTest {
 
         camera.onStartup(pc);
 
-        assertEquals(2, vm.getPublishedDeviceVariables().get("id:cid").size());
-        assertTrue(vm.getPublishedDeviceVariables().get("id:cid").get(VariableConstants.IMAGE_STATUS_URL).getValue().toString().endsWith("/snapshot.cgi?user=foo&pwd=bar"));
-        assertTrue(vm.getPublishedDeviceVariables().get("id:cid").get(VariableConstants.VIDEO_STATUS_URL).getValue().toString().endsWith("/videostream.cgi?resolution=8&rate=11&user=foo&pwd=bar"));
+        assertEquals(2, vm.getPublishedDeviceVariables().get(DeviceContext.createLocal("id", "cid").toString()).size());
+        assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.IMAGE_STATUS_URL).getValue().toString().endsWith("/snapshot.cgi?user=foo&pwd=bar"));
+        assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.VIDEO_STATUS_URL).getValue().toString().endsWith("/videostream.cgi?resolution=8&rate=11&user=foo&pwd=bar"));
     }
 
     @Test
@@ -69,9 +70,9 @@ public class FoscamIPCameraPluginTest {
 
         camera.onStartup(pc);
 
-        assertEquals(2, vm.getPublishedDeviceVariables().get("id:cid").size());
-        assertTrue(vm.getPublishedDeviceVariables().get("id:cid").get(VariableConstants.IMAGE_STATUS_URL).getValue().toString().endsWith("/snapshot.cgi"));
-        assertTrue(vm.getPublishedDeviceVariables().get("id:cid").get(VariableConstants.VIDEO_STATUS_URL).getValue().toString().endsWith("/videostream.cgi?resolution=8&rate=11"));
+        assertEquals(2, vm.getPublishedDeviceVariables().get(DeviceContext.createLocal("id", "cid").toString()).size());
+        assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.IMAGE_STATUS_URL).getValue().toString().endsWith("/snapshot.cgi"));
+        assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.VIDEO_STATUS_URL).getValue().toString().endsWith("/videostream.cgi?resolution=8&rate=11"));
 
         Map<String,Object> values = new HashMap<>();
         values.put(HobsonFoscamIPCamera.CONFIG_USERNAME, "foo1");
@@ -103,9 +104,9 @@ public class FoscamIPCameraPluginTest {
 
         camera.onStartup(pc);
 
-        assertEquals(2, vm.getPublishedDeviceVariables().get("id:cid").size());
-        assertTrue(vm.getPublishedDeviceVariables().get("id:cid").get(VariableConstants.IMAGE_STATUS_URL).getValue().toString().endsWith("/snapshot.cgi?user=foo&pwd=bar"));
-        assertTrue(vm.getPublishedDeviceVariables().get("id:cid").get(VariableConstants.VIDEO_STATUS_URL).getValue().toString().endsWith("/videostream.cgi?resolution=8&rate=11&user=foo&pwd=bar"));
+        assertEquals(2, vm.getPublishedDeviceVariables().get(DeviceContext.createLocal("id", "cid").toString()).size());
+        assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.IMAGE_STATUS_URL).getValue().toString().endsWith("/snapshot.cgi?user=foo&pwd=bar"));
+        assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.VIDEO_STATUS_URL).getValue().toString().endsWith("/videostream.cgi?resolution=8&rate=11&user=foo&pwd=bar"));
 
         // simulate user clearing username/password configuration fields
         pc = new PropertyContainer();
