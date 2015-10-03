@@ -74,6 +74,13 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     }
 
     @Override
+    public Long getLastCheckIn() {
+        // the camera is not proactively checked unless an image is requested; so we always claim its active
+        // TODO: change this to be based on a proactive ping
+        return System.currentTimeMillis();
+    }
+
+    @Override
     public String getPreferredVariableName() {
         return VariableConstants.IMAGE_STATUS_URL;
     }
