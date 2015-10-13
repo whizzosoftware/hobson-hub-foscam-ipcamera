@@ -103,8 +103,8 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
     @Override
     protected TypedProperty[] createSupportedProperties() {
         return new TypedProperty[] {
-            new TypedProperty(CONFIG_USERNAME, "Username", "A username that can access the camera", TypedProperty.Type.STRING),
-            new TypedProperty(CONFIG_PASSWORD, "Password", "The password for the user", TypedProperty.Type.SECURE_STRING)
+            new TypedProperty.Builder(CONFIG_USERNAME, "Username", "A username that can access the camera", TypedProperty.Type.STRING).build(),
+            new TypedProperty.Builder(CONFIG_PASSWORD, "Password", "The password for the user", TypedProperty.Type.SECURE_STRING).build()
         };
     }
 
