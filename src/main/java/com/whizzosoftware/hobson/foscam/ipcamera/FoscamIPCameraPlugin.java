@@ -8,15 +8,18 @@
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.whizzosoftware.foscam.camera.discovery.CameraDiscoveryListener;
 import com.whizzosoftware.hobson.api.device.DeviceContext;
+import com.whizzosoftware.hobson.api.device.HobsonDevice;
 import com.whizzosoftware.hobson.api.property.PropertyContainer;
 import com.whizzosoftware.hobson.api.property.TypedProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.whizzosoftware.foscam.camera.discovery.FoscamCameraDiscovery;
-import com.whizzosoftware.foscam.camera.discovery.FoscamCameraDiscoveryListener;
-import com.whizzosoftware.foscam.camera.model.FoscamCamera;
 import com.whizzosoftware.hobson.api.plugin.AbstractHobsonPlugin;
 import com.whizzosoftware.hobson.api.plugin.PluginStatus;
 
@@ -26,10 +29,11 @@ import com.whizzosoftware.hobson.api.plugin.PluginStatus;
  *
  * @author Dan Noguerol
  */
-public class FoscamIPCameraPlugin extends AbstractHobsonPlugin implements FoscamCameraDiscoveryListener {
+public class FoscamIPCameraPlugin extends AbstractHobsonPlugin implements CameraDiscoveryListener {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private FoscamCameraDiscovery discovery;
+    private List<String> publishedCameraIds = new ArrayList<>();
 
     public FoscamIPCameraPlugin(String pluginId) {
         super(pluginId);
@@ -82,17 +86,19 @@ public class FoscamIPCameraPlugin extends AbstractHobsonPlugin implements Foscam
     }
 
     /*
-     * FoscamCameraDiscoveryListener methods
+     * CameraDiscoveryListener methods
      */
 
     @Override
-    public void onCameraDiscovered(FoscamCamera camera) {
-        logger.trace("Discovered camera: " + camera.getId());
-        if (!hasDevice(DeviceContext.create(getContext(), camera.getId()))) {
-            publishDevice(new HobsonFoscamIPCamera(this, camera.getId(), camera.getName(), camera.getAddress()));
-            logger.debug("Added camera {}", camera.getId());
+    public void onCameraDiscovered(String cameraId, String cameraName, InetAddress address) {
+        logger.trace("Discovered camera: " + cameraId);
+        if (publishedCameraIds.contains(cameraId)) {
+            HobsonDevice device = getDevice(DeviceContext.create(getContext(), cameraId));
+            device.getRuntime().checkInDevice(System.currentTimeMillis());
         } else {
-            logger.trace("Already aware of this camera; skipping");
+            publishDevice(new HobsonFoscamIPCamera(this, cameraId, cameraName, address));
+            logger.debug("Added camera {}", cameraId);
+            publishedCameraIds.add(cameraId);
         }
     }
 }

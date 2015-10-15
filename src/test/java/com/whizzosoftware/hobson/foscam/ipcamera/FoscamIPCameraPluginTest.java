@@ -7,7 +7,6 @@
  *******************************************************************************/
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
-import com.whizzosoftware.foscam.camera.model.FoscamCamera;
 import com.whizzosoftware.hobson.api.device.DeviceContext;
 import com.whizzosoftware.hobson.api.device.MockDeviceManager;
 
@@ -32,7 +31,7 @@ public class FoscamIPCameraPluginTest {
         plugin.setDeviceManager(dm);
         plugin.onStartup(new PropertyContainer());
         assertEquals(0, dm.publishedDevices.size());
-        plugin.onCameraDiscovered(new FoscamCamera("cid", "camera", InetAddress.getLocalHost()));
+        plugin.onCameraDiscovered("cid", "camera", InetAddress.getLocalHost());
         assertEquals(1, dm.publishedDevices.size());
     }
 
