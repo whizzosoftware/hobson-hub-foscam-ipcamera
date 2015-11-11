@@ -58,8 +58,8 @@ public class HobsonFoscamIPCamera extends AbstractHobsonDevice {
         readConfig(config);
 
         // publish variables
-        publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
-        publishVariable(VariableConstants.VIDEO_STATUS_URL, getVideoUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA_URL);
+        publishVariable(VariableConstants.IMAGE_STATUS_URL, getImageUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA);
+        publishVariable(VariableConstants.VIDEO_STATUS_URL, getVideoUrl(), HobsonVariable.Mask.READ_ONLY, VariableProxyType.MEDIA);
 
         varsPublished = true;
     }
