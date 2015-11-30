@@ -1,5 +1,6 @@
 package com.whizzosoftware.hobson.foscam.ipcamera;
 
+import com.whizzosoftware.hobson.api.device.MockDeviceManager;
 import com.whizzosoftware.hobson.api.property.PropertyContainer;
 import org.junit.Test;
 
@@ -13,6 +14,7 @@ public class HobsonFoscamIPCameraTest {
     @Test
     public void testURLWithoutCredentials() {
         FoscamIPCameraPlugin plugin = new FoscamIPCameraPlugin("pluginId");
+        plugin.setDeviceManager(new MockDeviceManager());
         HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(plugin, "id", "camera", InetAddress.getLoopbackAddress());
         assertFalse(c.hasCredentials());
         assertEquals("http://127.0.0.1/snapshot.cgi", c.getImageUrl());
@@ -22,6 +24,7 @@ public class HobsonFoscamIPCameraTest {
     @Test
     public void testURLWithCredentials() {
         FoscamIPCameraPlugin plugin = new FoscamIPCameraPlugin("foo");
+        plugin.setDeviceManager(new MockDeviceManager());
         HobsonFoscamIPCamera c = new HobsonFoscamIPCamera(plugin, "id", "camera", InetAddress.getLoopbackAddress());
         PropertyContainer config = new PropertyContainer();
         Map<String,Object> values = new HashMap<>();
