@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.whizzosoftware.hobson.hub</groupId>
     <artifactId>hobson-hub-foscam-ipcamera</artifactId>
-    <version>0.5.0</version>
+    <version>0.5.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>Foscam IP Camera Plugin</name>
     <description>Provides the ability to control Foscam IP cameras.</description>
@@ -147,7 +147,7 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/whizzosoftware/hobson-hub-foscam-ipcamera.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/whizzosoftware/hobson-hub-foscam-ipcamera.git</developerConnection>
-        <tag>hobson-hub-foscam-ipcamera-0.5.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <repository>
