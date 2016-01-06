@@ -94,7 +94,7 @@ public class FoscamIPCameraPlugin extends AbstractHobsonPlugin implements Camera
         logger.trace("Discovered camera: " + cameraId);
         if (publishedCameraIds.contains(cameraId)) {
             HobsonDevice device = getDevice(DeviceContext.create(getContext(), cameraId));
-            device.getRuntime().checkInDevice(System.currentTimeMillis());
+            device.getRuntime().setDeviceAvailability(true, System.currentTimeMillis());
         } else {
             publishDevice(new HobsonFoscamIPCamera(this, cameraId, cameraName, address));
             logger.debug("Added camera {}", cameraId);
