@@ -51,7 +51,7 @@ public class FoscamIPCameraPluginTest {
 
         camera.onStartup(pc);
 
-        assertEquals(2, vm.getPublishedDeviceVariables().get(DeviceContext.createLocal("id", "cid").toString()).size());
+        assertEquals(2, vm.getPublishedDeviceVariables().size());
         assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.IMAGE_STATUS_URL).getValue().toString().endsWith("/snapshot.cgi?user=foo&pwd=bar"));
         assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.VIDEO_STATUS_URL).getValue().toString().endsWith("/videostream.cgi?resolution=8&rate=11&user=foo&pwd=bar"));
     }
@@ -69,7 +69,7 @@ public class FoscamIPCameraPluginTest {
 
         camera.onStartup(pc);
 
-        assertEquals(2, vm.getPublishedDeviceVariables().get(DeviceContext.createLocal("id", "cid").toString()).size());
+        assertEquals(2, vm.getPublishedDeviceVariables().size());
         assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.IMAGE_STATUS_URL).getValue().toString().endsWith("/snapshot.cgi"));
         assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.VIDEO_STATUS_URL).getValue().toString().endsWith("/videostream.cgi?resolution=8&rate=11"));
 
@@ -103,7 +103,7 @@ public class FoscamIPCameraPluginTest {
 
         camera.onStartup(pc);
 
-        assertEquals(2, vm.getPublishedDeviceVariables().get(DeviceContext.createLocal("id", "cid").toString()).size());
+        assertEquals(2, vm.getPublishedDeviceVariables().size());
         assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.IMAGE_STATUS_URL).getValue().toString().endsWith("/snapshot.cgi?user=foo&pwd=bar"));
         assertTrue(vm.getPublishedDeviceVariable(DeviceContext.createLocal("id", "cid"), VariableConstants.VIDEO_STATUS_URL).getValue().toString().endsWith("/videostream.cgi?resolution=8&rate=11&user=foo&pwd=bar"));
 
